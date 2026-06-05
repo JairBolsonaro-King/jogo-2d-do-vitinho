@@ -6,13 +6,15 @@ public class characterController : MonoBehaviour
 {
     public Rigidbody2D rb2d;
     public float vel;
-
     public GameObject GroundCheck;
 
     public float jumpForce;
+
+    private GroundCheck GroundCheckScript;
     public void Start()
     {
         rb2d = this.GetComponent<Rigidbody2D>();
+        GroundCheckScript = GroundCheck.GetComponent<GroundCheck>();
     }
 
     void Update()
@@ -23,7 +25,7 @@ public class characterController : MonoBehaviour
 
             rb2d.velocity += new Vector2(vel, 0) * horizontalInput * Time.deltaTime;
         }
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) && GroundCheckScript.IsOnGround)
         {
             rb2d.velocity = new Vector2(rb2d.velocity.x, jumpForce);
         }
