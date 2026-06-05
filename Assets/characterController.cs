@@ -2,23 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class characterController : MonoBehaviour 
+public class characterController : MonoBehaviour
 {
     public Rigidbody2D rb2d;
     public float vel;
-    void Start()
+
+    public GameObject GroundCheck;
+
+    public float jumpForce;
+    public void Start()
     {
-        rb2d = this.GetComponent<Rigidbody2D>() ;
+        rb2d = this.GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
-        if (rb2d.velocity.magnitude <5)
+        if (rb2d.velocity.magnitude < 5)
         {
-                  
-                  rb2d.velocity += new Vector2(vel,0) * horizontalInput * Time.deltaTime;
+
+            rb2d.velocity += new Vector2(vel, 0) * horizontalInput * Time.deltaTime;
         }
-  
+        if (Input.GetKey(KeyCode.Space))
+        {
+            rb2d.velocity = new Vector2(rb2d.velocity.x, jumpForce);
+        }
     }
 }
+
